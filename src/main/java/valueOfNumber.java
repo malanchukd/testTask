@@ -4,7 +4,6 @@ public class valueOfNumber {
         for (int i = 0; i < expr.length(); i++) {
             if (Character.isDigit(expr.charAt(i)))
                 count++;
-
         }
         return count;
     }

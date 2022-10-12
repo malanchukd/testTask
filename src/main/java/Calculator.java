@@ -1,5 +1,5 @@
 public class Calculator {
-    static double Calculation(String expr) {
+    static double calculation(String expr) {
         return new Object() {
             int pos = -1, ch;
 
@@ -25,8 +25,8 @@ public class Calculator {
             double parseExpression() {
                 double x = parseTerm();
                 for (;;) {
-                    if      (eat('+')) x += parseTerm(); // addition
-                    else if (eat('-')) x -= parseTerm(); // subtraction
+                    if      (eat('+')) x += parseTerm();
+                    else if (eat('-')) x -= parseTerm();
                     else return x;
                 }
             }
@@ -34,25 +34,25 @@ public class Calculator {
             double parseTerm() {
                 double x = parseFactor();
                 for (;;) {
-                    if      (eat('*')) x *= parseFactor(); // multiplication
-                    else if (eat('/')) x /= parseFactor(); // division
+                    if      (eat('*')) x *= parseFactor();
+                    else if (eat('/')) x /= parseFactor();
                     else return x;
                 }
             }
 
             double parseFactor() {
-                if (eat('+')) return +parseFactor(); // unary plus
-                if (eat('-')) return -parseFactor(); // unary minus
+                if (eat('+')) return +parseFactor();
+                if (eat('-')) return -parseFactor();
 
                 double x;
                 int startPos = this.pos;
-                if (eat('(')) { // parentheses
+                if (eat('(')) {
                     x = parseExpression();
                     if (!eat(')')) throw new RuntimeException("Missing ')'");
-                } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
+                } else if ((ch >= '0' && ch <= '9') || ch == '.') {
                     while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
                     x = Double.parseDouble(expr.substring(startPos, this.pos));
-                } else if (ch >= 'a' && ch <= 'z') { // functions
+                } else if (ch >= 'a' && ch <= 'z') {
                     while (ch >= 'a' && ch <= 'z') nextChar();
                     String func = expr.substring(startPos, this.pos);
                     if (eat('(')) {
@@ -72,7 +72,7 @@ public class Calculator {
                     throw new RuntimeException("Unexpected: " + (char)ch);
                 }
 
-                if (eat('^')) x = Math.pow(x, parseFactor()); // exponentiation
+                if (eat('^')) x = Math.pow(x, parseFactor());
 
                 return x;
             }
